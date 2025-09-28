@@ -4109,3 +4109,12 @@ body.intro-active{ overflow: hidden; }
 .intro-running body > *{ visibility:hidden }
 .intro-running .intro-overlay{ visibility:visible }
 
+
+
+/* Intro flow refinements */
+html.intro-running, html.intro-running body { overflow:hidden; }
+html.intro-running header,
+html.intro-running .hero,
+html.intro-running .section,
+html.intro-running footer { opacity:0; }
+

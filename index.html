@@ -763,7 +763,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 <script>
 (function(){
-  // add running flag to hide content below overlay
+  // Start intro: lock scroll + hide content
   document.documentElement.classList.add('intro-running');
 
   const overlay = document.getElementById('introOverlay');
@@ -776,27 +776,26 @@ document.addEventListener('DOMContentLoaded', ()=>{
     return;
   }
 
+  // Ensure page at top for consistent measurement
+  window.scrollTo(0,0);
+
   // Split title into spans (preserve spaces)
-  const text = introTitle.textContent;
+  const text = 'Willkommen auf Oberstufe.site';
   introTitle.setAttribute('aria-label', text);
   introTitle.textContent = '';
   for(const ch of text){
     const span = document.createElement('span');
     span.className = 'split-char';
-    if(ch === ' ') { span.innerHTML = '&nbsp;'; }
-    else { span.textContent = ch; }
+    if(ch === ' ') { span.innerHTML = '&nbsp;'; } else { span.textContent = ch; }
     span.style.opacity = '0';
     span.style.transform = 'translateY(40px)';
     introTitle.appendChild(span);
   }
 
-  function animateIn(){
+  function animateChars(done){
     const letters = introTitle.querySelectorAll('.split-char');
-    const done = ()=> moveToHero();
     if(window.gsap){
-      gsap.to(letters, {
-        opacity:1, y:0, duration:0.4, ease:'power3.out', stagger:0.05, onComplete: done
-      });
+      gsap.to(letters, { opacity:1, y:0, duration:0.4, ease:'power3.out', stagger:0.05, onComplete: done });
     }else{
       letters.forEach((el,i)=> setTimeout(()=>{ el.style.opacity='1'; el.style.transform='none'; }, 40*i));
       setTimeout(done, 800);
@@ -804,54 +803,54 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   function moveToHero(){
-    // position introTitle absolutely to compute translation
+    // Match font size to hero for smoother snap
+    const heroStyle = window.getComputedStyle(heroH1);
+    const heroFontSize = heroStyle.fontSize;
+
     const r1 = introTitle.getBoundingClientRect();
     const r2 = heroH1.getBoundingClientRect();
     const dx = (r2.left + window.scrollX) - (r1.left + window.scrollX);
     const dy = (r2.top + window.scrollY) - (r1.top + window.scrollY);
 
-    introTitle.style.position = 'relative';
-
     if(window.gsap){
       const tl = gsap.timeline();
-      tl.to(introTitle, { x: dx, y: dy, duration:0.6, ease:'power3.inOut' })
-        .to(overlay, { opacity:0, duration:0.3, ease:'power1.out',
+      tl.to(introTitle, { fontSize: heroFontSize, duration:0.3, ease:'power1.out' }, 0)
+        .to(introTitle, { x: dx, y: dy, duration:0.6, ease:'power3.inOut' }, 0)
+        .to(overlay, { opacity:0, duration:0.25, ease:'power1.out',
           onComplete: ()=>{
             overlay.remove();
-            document.documentElement.classList.remove('intro-running');
+            // Reveal content after overlay fades
             revealContent();
           }
-        }, "-=0.1");
+        });
     }else{
       introTitle.style.transform = `translate(${dx}px, ${dy}px)`;
-      setTimeout(()=>{
-        overlay.remove();
-        document.documentElement.classList.remove('intro-running');
-        revealContent();
-      }, 700);
+      overlay.style.opacity = '0';
+      setTimeout(()=>{ overlay.remove(); revealContent(); }, 650);
     }
   }
 
   function revealContent(){
-    // render hero title normally (ensure correct text)
-    if(heroH1){ heroH1.textContent = 'Willkommen auf Oberstufe.site'; }
-    const targets = Array.from(document.querySelectorAll('header, .hero, .section, footer'));
-    targets.forEach(el=>{
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(16px)';
-    });
+    // Set hero text to normal (no split) and show sections
+    heroH1.textContent = 'Willkommen auf Oberstufe.site';
+    document.documentElement.classList.remove('intro-running');
+    const parts = Array.from(document.querySelectorAll('header, .hero, .section, footer'));
+    parts.forEach(el=>{ el.style.opacity = '0'; el.style.transform = 'translateY(16px)'; });
     if(window.gsap){
-      gsap.to(targets, { opacity:1, y:0, duration:0.6, ease:'power2.out', stagger:0.06 });
+      gsap.to(parts, { opacity:1, y:0, duration:0.6, ease:'power2.out', stagger:0.06 });
     }else{
-      targets.forEach((el,i)=> setTimeout(()=>{ el.style.opacity='1'; el.style.transform='none'; }, 60*i));
+      parts.forEach((el,i)=> setTimeout(()=>{ el.style.opacity='1'; el.style.transform='none'; }, 50*i));
     }
   }
 
-  // kick off after fonts ready for better metrics
+  function start(){
+    animateChars(()=> moveToHero());
+  }
+
   if(document.fonts && document.fonts.ready){
-    document.fonts.ready.then(animateIn);
+    document.fonts.ready.then(start);
   }else{
-    window.addEventListener('load', animateIn);
+    window.addEventListener('load', start);
   }
 })();
 </script>
