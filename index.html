@@ -97,7 +97,7 @@
 
   <section class="hero">
     <div class="container">
-      <h1 data-i18n="hero_home_title">Willkommen auf oberstufe.site</h1>
+      <h1 data-i18n="hero_home_title">Willkommen auf Oberstufe.site</h1>
       <p data-i18n="hero_home_sub">Die zentrale Startseite unserer Projekte</p>
       <p class="meta">Ein Projekt von Kian Majidian, Konstantin Ihl, Basit Rezai, Mark Naujoks, Kamil Köse und Hugo Alvarez aus der Q1.</p>
       <div class="search-wrap">
@@ -679,7 +679,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   for(const ch of text){
     const span = document.createElement('span');
     span.className = 'split-char';
-    span.textContent = ch;
+    if(ch === ' ') { span.innerHTML = '&nbsp;'; } else { span.textContent = ch; }
     span.style.display = 'inline-block';
     span.style.opacity = '0';
     span.style.transform = 'translateY(40px)';
