@@ -3995,3 +3995,6 @@ p, li{ line-height:1.6 }
 
 /* center hero meta */
 .hero .meta{text-align:center;display:block;margin-top:8px;}
+
+/* authors below description */
+.card-authors{ font-size:12px; margin-top:4px; color:var(--muted); }
