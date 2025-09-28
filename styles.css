@@ -4070,3 +4070,42 @@ body{ font-family:'Sora', system-ui, -apple-system, Segoe UI, Roboto, Sans-Serif
   .qr-in-footer img{ width:52px; height:52px }
 }
 
+
+
+/* Intro overlay */
+#intro{
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--bg, #fff);
+  z-index: 1000;
+}
+[data-theme="dark"] #intro{ background: #111; }
+#intro .intro-title{
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
+/* Hide scroll during intro */
+body.intro-active{ overflow: hidden; }
+
+/* Hide main content until reveal */
+#mainContent{ opacity:0; transition: opacity .3s ease; }
+#mainContent.reveal{ opacity:1; }
+
+
+
+/* Intro overlay */
+.intro-overlay{
+  position:fixed; inset:0; z-index:1000;
+  display:flex; align-items:center; justify-content:center;
+  background: var(--bg, #fff);
+}
+[data-theme="dark"] .intro-overlay{ background:#111; }
+.split-char{ display:inline-block; will-change:transform, opacity }
+.intro-running body > *{ visibility:hidden }
+.intro-running .intro-overlay{ visibility:visible }
+
