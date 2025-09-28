@@ -12,10 +12,6 @@ collections:
     label: Cards JSON
     name: cardsjson
     fields:
-    - label: Authoren
-      name: authors
-      widget: string
-      required: false
     - label: Cards
       name: cards
       widget: list
@@ -29,6 +25,10 @@ collections:
         widget: string
       - label: Untertitel
         name: subtitle
+        widget: string
+        required: false
+      - label: Authoren
+        name: authors
         widget: string
         required: false
       - label: URL
