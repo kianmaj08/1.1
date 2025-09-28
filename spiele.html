@@ -444,7 +444,7 @@
 <script>
   function renderGames(cards){
   const grid=document.getElementById('spieleGrid'); if(!grid) return;
-  const games=cards.filter(c=>(c.page||'')==='spiele' && c.is_published!==false);
+  const games=cards.filter(c=> (c.page||'')==='spiele' && c.is_published!==false);
   grid.innerHTML = games.map(cardHTML).join('');
 }
   document.addEventListener('DOMContentLoaded', async ()=>{
