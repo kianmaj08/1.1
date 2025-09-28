@@ -4011,3 +4011,9 @@ p, li{ line-height:1.6 }
   transform: translateY(0);
 }
 
+
+
+body { font-family: 'Inter', sans-serif; }
+[data-theme="dark"] h1.site-title { color:#fff !important; }
+.search input[type="search"] { border:none !important; outline:none !important; box-shadow:none !important; }
+
