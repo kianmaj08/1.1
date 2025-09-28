@@ -67,6 +67,7 @@ collections:
         - mathe
         - chemie
         - informatik
+        required: false
       - label: Bild (optional)
         name: image_url
         widget: image
