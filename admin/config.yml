@@ -34,15 +34,6 @@ collections:
       - label: URL
         name: url
         widget: string
-      - label: Typ
-        name: type
-        widget: select
-        options:
-        - website
-        - presentation
-        - video
-        - game
-        default: website
       - label: Seite
         name: page
         widget: select

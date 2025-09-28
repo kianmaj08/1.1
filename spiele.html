@@ -78,6 +78,8 @@
 </div>
 <!-- /Staggered Menu -->
 </header>
+<div id="spieleGrid" class="card-grid two-cols"></div>
+
 <!-- Mobile Unter-Navigation -->
 <nav class="mobile-subnav">
   <a href="index.html" class="">Home</a>
@@ -444,5 +446,19 @@
 </script>
 
   <script src="assets/staggered-menu.js"></script>
+
+<script>
+  function renderGames(cards){
+    const grid = document.getElementById('spieleGrid');
+    if(!grid) return;
+    const games = cards.filter(c => (c.page||'')==='spiele');
+    grid.innerHTML = games.map(cardHTML).join('');
+  }
+  document.addEventListener('DOMContentLoaded', async ()=>{
+    const cards = await loadCards();
+    renderGames(cards);
+  });
+</script>
+
 </body>
 </html>

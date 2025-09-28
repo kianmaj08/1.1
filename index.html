@@ -435,11 +435,11 @@ function badgeHTML(status){
   }
   function renderWebsites(cards){
     const grid=document.getElementById('websitesGrid'); if(!grid) return;
-    const webs=cards.filter(c=>(c.type||'')==='website');
+    const webs = cards.filter(c=> (c.page||'')==='home');
     grid.innerHTML = webs.map(cardHTML).join('');
   }
   function renderPresentations(cards){
-    const pres=cards.filter(c=>(c.type||'')==='presentation');
+    const pres=cards.filter(c=>(c.page||'')==='home');
     document.querySelectorAll('[data-tag]').forEach(grid=>{
       const tag=(grid.getAttribute('data-tag')||'').toLowerCase();
       const items=pres.filter(c=>(c.tag||'').toLowerCase()===tag);
