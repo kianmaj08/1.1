@@ -434,10 +434,10 @@ function badgeHTML(status){
     const d=await r.json(); return (d.cards||[]).filter(c=>c.is_published!==false);
   }
   function renderWebsites(cards){
-    const grid=document.getElementById('websitesGrid'); if(!grid) return;
-    const webs = cards.filter(c=> (c.page||'')==='home');
-    grid.innerHTML = webs.map(cardHTML).join('');
-  }
+  const grid=document.getElementById('websitesGrid'); if(!grid) return;
+  const items=cards.filter(c=>(c.page||'')==='home' && c.is_published!==false);
+  grid.innerHTML = items.map(cardHTML).join('');
+}
   function renderPresentations(cards){
     const pres=cards.filter(c=>(c.page||'')==='home');
     document.querySelectorAll('[data-tag]').forEach(grid=>{
