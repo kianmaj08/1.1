@@ -3951,3 +3951,36 @@ p, li{ line-height:1.6 }
 *[style*="width:"], *[style*="min-width:"]{
   max-width:100%;
 }
+
+
+/* === Mobile Subnav under header (only phones) === */
+@media (max-width: 768px){
+  /* hide header nav links; keep logo + menu button */
+  .topnav{ display:none !important; }
+
+  .mobile-subnav{
+    display:flex;
+    justify-content:space-around;
+    gap:4px;
+    background: var(--card, #fff);
+    border-bottom:1px solid var(--border);
+    padding: 8px 0;
+    position:relative;
+    z-index:50;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+  .mobile-subnav a{
+    flex:1;
+    text-align:center;
+    font-weight:600;
+    padding:6px 4px;
+    font-size:14px;
+    color: var(--text);
+    text-decoration:none;
+  }
+  .mobile-subnav a.active{
+    border-bottom:2px solid var(--primary);
+    color: var(--primary);
+  }
+}
