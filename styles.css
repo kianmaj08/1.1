@@ -3954,6 +3954,7 @@ p, li{ line-height:1.6 }
 
 
 /* === Mobile Subnav under header (only phones) === */
+.mobile-subnav{display:none;}
 @media (max-width: 768px){
   /* hide header nav links; keep logo + menu button */
   .topnav{ display:none !important; }
@@ -3984,3 +3985,13 @@ p, li{ line-height:1.6 }
     color: var(--primary);
   }
 }
+
+
+/* === Handy Header vereinfachen (nur Logo + Burger) === */
+@media (max-width: 768px){
+  header .topnav{ display:none !important; }
+  header .right{ display:flex !important; }
+}
+
+/* center hero meta */
+.hero .meta{text-align:center;display:block;margin-top:8px;}
