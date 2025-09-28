@@ -419,24 +419,16 @@ function badgeHTML(status){
     return `<span class="pill-tag tag-${tag}">${label}</span>`;
   }
   function cardHTML(c){
-    const tag=(c.tag||'').toLowerCase();
-    return `<div class="card card--${tag}">
+  const tag=(c.tag||'').toLowerCase();
+  const authorsStr = Array.isArray(c.authors) ? c.authors.map(a=> (a && a.name)?a.name:a).join(', ') : (c.authors||'');
+  return `<div class="card card--${tag}">
       ${c.image_url?`<img class="card-thumb" src="${c.image_url}" alt="">`:''}
       <h3>${c.title||''}</h3>
       ${c.subtitle?`<p class="muted">${c.subtitle}</p>`:''}
-      ${ (c.authors && c.authors.length)?`<p class=\"card-authors muted\">${c.authors.map(a=>a.name?a.name:a).join(', ')}</p>`:'' }
+      ${authorsStr?`<p class="card-authors muted">${authorsStr}</p>`:''}
       <div class="row-tags"><div class="left">${tagPill(tag)}</div></div>
-      <div class="actions"><a class="btn btn-primary" href="${c.url}" target="_blank" rel="noopener">Öffnen</a>${statusBtnHTML(c.status)}</div>
+      <div class="actions"><a class="btn btn-primary" href="${c.url||'#'}" target="_blank" rel="noopener">Öffnen</a>${statusBtnHTML(c.status)}</div>
     </div>`;
-  }
-  async function loadCards(){
-    const r=await fetch('/data/cards.json',{cache:'no-cache'});
-    const d=await r.json(); return (d.cards||[]).filter(c=>c.is_published!==false);
-  }
-  function renderWebsites(cards){
-  const grid=document.getElementById('websitesGrid'); if(!grid) return;
-  const items=cards.filter(c=>(c.page||'')==='home' && c.is_published!==false);
-  grid.innerHTML = items.map(cardHTML).join('');
 }
   function renderPresentations(cards){
     const pres=cards.filter(c=>(c.page||'')==='home');
